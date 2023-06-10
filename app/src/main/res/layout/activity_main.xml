@@ -57,5 +57,20 @@
             android:textSize="@dimen/_13ssp"/>
 
     </LinearLayout>
+    
+    <ImageView
+        android:id="@+id/addNewNote"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:background="@drawable/add_note_button"
+        android:contentDescription="@string/app_name"
+        android:padding="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_23sdp"
+        android:src="@drawable/add_note"
+        android:tint="@color/colorSearchBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="UseAppTint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
