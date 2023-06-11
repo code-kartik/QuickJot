@@ -57,11 +57,22 @@
             android:textSize="@dimen/_13ssp"/>
 
     </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/_2sdp"
+        android:layout_marginEnd="@dimen/_2sdp"
+        android:paddingStart="0dp"
+        android:paddingEnd="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_12sdp"
+        app:layout_constraintBottom_toTopOf="@id/addNewNote"
+        app:layout_constraintTop_toBottomOf="@id/search"/>
     
     <ImageView
         android:id="@+id/addNewNote"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
+        android:layout_width="@dimen/_40sdp"
+        android:layout_height="@dimen/_40sdp"
         android:background="@drawable/add_note_button"
         android:contentDescription="@string/app_name"
         android:padding="@dimen/_5sdp"
