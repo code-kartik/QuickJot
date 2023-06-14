@@ -1,26 +1,22 @@
 package com.example.quickjot.activities
 
-import android.app.Application
 import android.content.Intent
-import android.os.AsyncTask
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.provider.ContactsContract.CommonDataKinds.Note
-import android.util.Log
-import androidx.lifecycle.LiveData
+import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.quickjot.database.notesDatabase
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.example.quickjot.adapter.INotesAdapter
+import com.example.quickjot.adapter.NotesAdapter
 import com.example.quickjot.databinding.ActivityMainBinding
 import com.example.quickjot.entities.notes
 import com.example.quickjot.viewmodel.notesViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), INotesAdapter {
 
     private lateinit var binding: ActivityMainBinding
-    lateinit var viewModel:notesViewModel
+    private lateinit var viewModel:notesViewModel
     val REQUEST_CODE = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +30,24 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        val adapter: NotesAdapter
+
+        adapter = NotesAdapter(this, this)
+        binding.recyclerView.adapter = adapter
+
         viewModel = ViewModelProvider(this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(notesViewModel::class.java)
-        viewModel.allNotes.observe(this, Observer {  })
+        viewModel.allNotes.observe(this, Observer {list->
+            list?.let {
+                adapter.updateList(it)
+            }
+        })
+
+        binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL )
+    }
+
+    override fun onItemClicked(note: notes){
+        viewModel.deleteNote(note)
+        Toast.makeText(this, "${note.title} deleted!", Toast.LENGTH_SHORT).show()
     }
 }
